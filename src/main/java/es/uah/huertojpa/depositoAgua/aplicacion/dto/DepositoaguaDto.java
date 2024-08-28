@@ -1,15 +1,17 @@
 package es.uah.huertojpa.depositoAgua.aplicacion.dto;
 
-import es.uah.huertojpa.depositoAgua.dominio.Depositoagua;
+import es.uah.huertojpa.depositoAgua.dominio.DepositoAgua;
+import es.uah.huertojpa.huerto.dominio.entidades.Huerto;
 import es.uah.huertojpa.sensores.dominio.entidades.SensorDto;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * DTO for {@link Depositoagua}
+ * DTO for {@link DepositoAgua}
  */
 public class DepositoaguaDto implements Serializable {
+    private Huerto huertoIdhuerto;
     private final Integer id;
     private final Float cantidadMaxima;
     private final Integer huertoIdhuertoId;
@@ -65,6 +67,10 @@ public class DepositoaguaDto implements Serializable {
         return estado;
     }
 
+    public void setSensorIdsensor(SensorDto sensorIdsensor) {
+        this.sensorIdsensor = sensorIdsensor;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -97,4 +103,6 @@ public class DepositoaguaDto implements Serializable {
     public SensorDto getSensorIdsensor() {
         return sensorIdsensor;
     }
+
+
 }

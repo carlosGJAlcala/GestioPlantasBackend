@@ -1,4 +1,4 @@
-package es.uah.huertojpa;
+package es.uah.huertojpa.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

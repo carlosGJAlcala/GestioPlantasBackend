@@ -7,20 +7,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-public interface DepositoaguaRepository extends JpaRepository<Depositoagua, Integer> {
+public interface DepositoaguaRepository extends JpaRepository<DepositoAgua, Integer> {
 
 
     @Override
-    Optional<Depositoagua> findById(Integer integer);
+    Optional<DepositoAgua> findById(Integer integer);
 
-    Optional<Depositoagua> findByHuertoIdhuerto_Id(Integer id);
+    Optional<DepositoAgua> findBySensorIdsensor_Id(Integer id);
 
-    Optional<Depositoagua> findBySensorIdsensor_Id(Integer id);
+    Optional<DepositoAgua> findByHuertoIdhuerto_Id(Integer id);
 
 
     @Transactional
     @Modifying
-    @Query("update Depositoagua d set d.estado = ?1 where d.id = ?2")
+    @Query("update DepositoAgua d set d.estado = ?1 where d.id = ?2")
     int updateEstadoById(String estado, Integer id);
 
 }

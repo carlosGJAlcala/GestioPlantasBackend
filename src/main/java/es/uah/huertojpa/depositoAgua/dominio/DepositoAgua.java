@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "depositoagua")
-public class Depositoagua {
+public class DepositoAgua {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idDepositoAgua", nullable = false)
@@ -28,14 +28,6 @@ public class Depositoagua {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Sensor_idSensor")
     private Sensor sensorIdsensor;
-
-    public Sensor getSensorIdsensor() {
-        return sensorIdsensor;
-    }
-
-    public void setSensorIdsensor(Sensor sensorIdsensor) {
-        this.sensorIdsensor = sensorIdsensor;
-    }
 
     public Integer getId() {
         return id;
@@ -75,6 +67,14 @@ public class Depositoagua {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public Sensor getSensorIdsensor() {
+        return sensorIdsensor;
+    }
+
+    public void setSensorIdsensor(Sensor sensorIdsensor) {
+        this.sensorIdsensor = sensorIdsensor;
     }
 
 }

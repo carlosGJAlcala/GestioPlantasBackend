@@ -8,10 +8,13 @@ public interface IHuertoHasUsuarioDAO {
     HuertoHasUsuario buscarPorID(Integer huertoIdhuerto, Integer usuarioPersonaId);
 
     List<HuertoHasUsuario> buscarPorIDUser(Integer usuarioPersonaId);
+    List<HuertoHasUsuario> buscarPorIDHuerto(Integer huertoId);
 
     void guardar(HuertoHasUsuario obj);
 
     void actualizar(HuertoHasUsuario obj);
     void eliminar(Integer id);
+
+    List<HuertoHasUsuario> buscarTodos();
 }
 

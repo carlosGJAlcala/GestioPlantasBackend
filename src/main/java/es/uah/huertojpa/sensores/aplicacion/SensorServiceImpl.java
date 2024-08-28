@@ -2,10 +2,8 @@ package es.uah.huertojpa.sensores.aplicacion;
 
 import es.uah.huertojpa.depositoAgua.aplicacion.dto.DepositoaguaDto;
 import es.uah.huertojpa.depositoAgua.aplicacion.service.IDepositoAguaService;
-import es.uah.huertojpa.depositoAgua.dominio.Depositoagua;
 import es.uah.huertojpa.maceta.aplicacion.IMacetaHasSensorService;
 import es.uah.huertojpa.maceta.dominio.MacetaHasSensor;
-import es.uah.huertojpa.sensores.dominio.entidades.Sensor;
 import es.uah.huertojpa.sensores.dominio.entidades.SensorDepositoAguaPublisher;
 import es.uah.huertojpa.sensores.dominio.entidades.SensorDto;
 import es.uah.huertojpa.sensores.dominio.entidades.SensorPublisher;

@@ -15,4 +15,6 @@ public interface IPersonaService   {
     boolean eliminarPersona(Integer idPersona);
 
     boolean borrarPorUserName(String userName);
+
+    boolean mandarEmail(Integer idPersona);
 }

@@ -29,6 +29,11 @@ public class HuertoHasUsuarioDAOImpl implements  IHuertoHasUsuarioDAO{
     }
 
     @Override
+    public List<HuertoHasUsuario> buscarPorIDHuerto(Integer huertoId) {
+        return repository.findById_HuertoIdhuerto(huertoId);
+    }
+
+    @Override
     public void guardar(HuertoHasUsuario obj) {
         repository.save(obj);
     }
@@ -40,5 +45,10 @@ public class HuertoHasUsuarioDAOImpl implements  IHuertoHasUsuarioDAO{
 
     @Override
     public void eliminar(Integer id) {
+    }
+
+    @Override
+    public List<HuertoHasUsuario> buscarTodos() {
+        return repository.findAll();
     }
 }

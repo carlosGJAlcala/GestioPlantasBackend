@@ -1,17 +1,17 @@
 package es.uah.huertojpa.depositoAgua.aplicacion.mapper;
 
 import es.uah.huertojpa.depositoAgua.aplicacion.dto.DepositoaguaDto;
-import es.uah.huertojpa.depositoAgua.dominio.Depositoagua;
+import es.uah.huertojpa.depositoAgua.dominio.DepositoAgua;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface DepositoaguaMapper {
     DepositoaguaMapper mapper= Mappers.getMapper(DepositoaguaMapper.class);
-    Depositoagua toEntity(DepositoaguaDto depositoaguaDto);
+    DepositoAgua toEntity(DepositoaguaDto depositoaguaDto);
 
-    DepositoaguaDto toDto(Depositoagua depositoagua);
+    DepositoaguaDto toDto(DepositoAgua depositoagua);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    Depositoagua partialUpdate(DepositoaguaDto depositoaguaDto, @MappingTarget Depositoagua depositoagua);
+    DepositoAgua partialUpdate(DepositoaguaDto depositoaguaDto, @MappingTarget DepositoAgua depositoagua);
 }

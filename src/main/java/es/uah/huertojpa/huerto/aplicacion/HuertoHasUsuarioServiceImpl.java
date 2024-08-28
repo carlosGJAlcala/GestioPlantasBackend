@@ -17,7 +17,27 @@ public class HuertoHasUsuarioServiceImpl implements IHuertoHasUsuarioService{
     }
 
     @Override
-    public List<HuertoHasUsuario> buscarPorIDUser(Integer usuarioPersonaId) {
-        return dao.buscarPorIDUser(usuarioPersonaId);
+    public List<HuertoHasUsuario> buscarTodos() {
+        List<HuertoHasUsuario> resultado=dao.buscarTodos();
+        return resultado;
     }
+
+    @Override
+    public List<HuertoHasUsuario> buscarPorIDUser(Integer usuarioPersonaId) {
+        List<HuertoHasUsuario> resultado=dao.buscarPorIDUser(usuarioPersonaId);
+
+
+        return resultado;
+
+    }
+
+
+    @Override
+    public List<HuertoHasUsuario> buscarPorIDHuerto(Integer huertoId) {
+        List<HuertoHasUsuario> resultado=dao.buscarPorIDHuerto(huertoId);
+
+        return resultado;
+
+    }
+
 }

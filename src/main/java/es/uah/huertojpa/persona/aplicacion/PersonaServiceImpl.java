@@ -4,14 +4,19 @@ import com.google.common.hash.Hashing;
 import es.uah.huertojpa.persona.dominio.entidades.Persona;
 import es.uah.huertojpa.persona.infrastructura.database.IPersonaDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import org.springframework.mail.javamail.JavaMailSender;
+
 @Service
 public class PersonaServiceImpl implements IPersonaService{
     @Autowired
     IPersonaDAO personaDAO;
+    @Autowired
+    private JavaMailSender mailSender;
     @Override
     public List<Persona> buscarTodas() {
         return personaDAO.buscarTodas();
@@ -68,5 +73,25 @@ public class PersonaServiceImpl implements IPersonaService{
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean mandarEmail(Integer idPersona) {
+        Persona persona= this.buscarPorId(idPersona);
+        String correo= persona.getCorreoElectronico();
+        try {
+            SimpleMailMessage mensaje = new SimpleMailMessage();
+            mensaje.setTo(correo);
+            mensaje.setSubject("DEPOSITO AGUA");
+            mensaje.setText("El deposito de agua esta vacio");
+            mensaje.setFrom("huertouah@gmail.com");
+
+            mailSender.send(mensaje);
+
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

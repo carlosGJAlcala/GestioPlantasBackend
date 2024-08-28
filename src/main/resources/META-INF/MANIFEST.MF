@@ -1,0 +1,33 @@
+Manifest-Version: 1.0
+Main-Class: es.uah.huertojpa.HuertojpaApplication
+Class-Path: spring-context-6.1.10.jar spring-boot-3.3.1.jar log4j-to-slf
+ 4j-2.23.1.jar snakeyaml-2.2.jar jakarta.annotation-api-2.1.1.jar tomcat
+ -embed-el-10.1.25.jar classmate-1.7.0.jar slf4j-api-2.0.13.jar error_pr
+ one_annotations-2.21.1.jar jackson-module-parameter-names-2.17.1.jar sp
+ ring-data-commons-3.3.1.jar jackson-core-2.17.1.jar log4j-api-2.23.1.ja
+ r spring-boot-starter-logging-3.3.1.jar spring-boot-devtools-3.3.1.jar 
+ jul-to-slf4j-2.0.13.jar tomcat-embed-core-10.1.25.jar spring-boot-start
+ er-data-jpa-3.3.1.jar spring-boot-starter-3.3.1.jar listenablefuture-99
+ 99.0-empty-to-avoid-conflict-with-guava.jar spring-boot-starter-tomcat-
+ 3.3.1.jar jboss-logging-3.5.3.Final.jar angus-activation-2.0.2.jar spri
+ ng-web-6.1.10.jar jaxb-runtime-4.0.5.jar byte-buddy-1.14.17.jar failure
+ access-1.0.1.jar jakarta.transaction-api-2.0.1.jar jackson-datatype-jsr
+ 310-2.17.1.jar spring-webmvc-6.1.10.jar spring-boot-starter-aop-3.3.1.j
+ ar guava-32.1.3-jre.jar jakarta.persistence-api-3.1.0.jar mysql-connect
+ or-j-8.3.0.jar spring-boot-starter-json-3.3.1.jar micrometer-observatio
+ n-1.13.1.jar jackson-annotations-2.17.1.jar spring-aspects-6.1.10.jar j
+ akarta.activation-api-2.1.3.jar hibernate-core-6.5.2.Final.jar txw2-4.0
+ .5.jar mapstruct-1.5.5.Final.jar spring-beans-6.1.10.jar jjwt-0.9.1.jar
+  logback-classic-1.5.6.jar antlr4-runtime-4.13.0.jar jackson-databind-2
+ .17.1.jar spring-boot-starter-jdbc-3.3.1.jar jakarta.xml.bind-api-4.0.2
+ .jar micrometer-commons-1.13.1.jar spring-aop-6.1.10.jar spring-express
+ ion-6.1.10.jar jandex-3.1.2.jar j2objc-annotations-2.8.jar checker-qual
+ -3.37.0.jar spring-jcl-6.1.10.jar jakarta.inject-api-2.0.1.jar spring-o
+ rm-6.1.10.jar jaxb-core-4.0.5.jar spring-core-6.1.10.jar logback-core-1
+ .5.6.jar HikariCP-5.1.0.jar spring-tx-6.1.10.jar aspectjweaver-1.9.20.1
+ .jar jackson-datatype-jdk8-2.17.1.jar istack-commons-runtime-4.1.2.jar 
+ spring-data-jpa-3.3.1.jar spring-boot-starter-web-3.3.1.jar tomcat-embe
+ d-websocket-10.1.25.jar spring-jdbc-6.1.10.jar hibernate-commons-annota
+ tions-6.0.6.Final.jar spring-boot-autoconfigure-3.3.1.jar jsr305-3.0.2.
+ jar
+

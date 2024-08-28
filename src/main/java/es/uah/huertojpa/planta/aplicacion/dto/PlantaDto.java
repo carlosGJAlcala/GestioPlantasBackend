@@ -1,6 +1,7 @@
 package es.uah.huertojpa.planta.aplicacion.dto;
 
 import es.uah.huertojpa.planta.aplicacion.state.Estado;
+import es.uah.huertojpa.planta.aplicacion.state.EstadoFeliz;
 import es.uah.huertojpa.tipoPlanta.dominio.Tipoplanta;
 
 import java.io.Serializable;
@@ -66,7 +67,7 @@ public class PlantaDto implements Serializable   {
         this.nivelActualHumedad = nivelActualHumedad;
         this.nivelActualLuminosidad = nivelActualLuminosidad;
         this.nivelActualTemperatura = nivelActualTemperatura;
-
+        this.estadoActual=new EstadoFeliz();
 
 
     }

@@ -12,5 +12,7 @@ public interface HuertoHasUsuarioRepository extends JpaRepository<HuertoHasUsuar
 
     List<HuertoHasUsuario> findById_UsuarioPersonaId(Integer usuarioPersonaId);
 
+    List<HuertoHasUsuario> findById_HuertoIdhuerto(Integer huertoIdhuerto);
+
 
 }

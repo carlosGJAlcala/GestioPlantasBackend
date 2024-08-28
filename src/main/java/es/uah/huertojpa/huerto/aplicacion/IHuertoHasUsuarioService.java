@@ -6,5 +6,8 @@ import java.util.List;
 
 public interface IHuertoHasUsuarioService {
     HuertoHasUsuario buscarPorID(Integer huertoIdhuerto, Integer usuarioPersonaId);
+    List<HuertoHasUsuario>buscarTodos();
+
     List<HuertoHasUsuario>buscarPorIDUser( Integer usuarioPersonaId);
+    List<HuertoHasUsuario> buscarPorIDHuerto(Integer huertoId);
 }

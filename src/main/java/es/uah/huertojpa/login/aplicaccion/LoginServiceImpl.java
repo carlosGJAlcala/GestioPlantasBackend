@@ -1,5 +1,6 @@
-package es.uah.huertojpa.persona.aplicacion;
+package es.uah.huertojpa.login.aplicaccion;
 
+import es.uah.huertojpa.persona.aplicacion.ILoginService;
 import es.uah.huertojpa.persona.dominio.entidades.Administrador;
 import es.uah.huertojpa.persona.dominio.entidades.Login;
 import es.uah.huertojpa.persona.dominio.entidades.LoginResp;
@@ -11,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LoginServiceImpl implements  ILoginService{
+public class LoginServiceImpl implements ILoginService {
     @Autowired
     IPersonaDAO personaDAO;
     @Autowired

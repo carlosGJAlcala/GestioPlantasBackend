@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 public class SensorDepositoAguaAdapterObserver extends ApplicationEvent {
     SensorDto sensorDto;
 
+
     public SensorDto getSensorDto() {
         return sensorDto;
     }

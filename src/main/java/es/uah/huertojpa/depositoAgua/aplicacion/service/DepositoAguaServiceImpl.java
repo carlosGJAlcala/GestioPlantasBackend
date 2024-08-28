@@ -4,8 +4,11 @@ import es.uah.huertojpa.depositoAgua.aplicacion.dto.DepositoaguaDto;
 import es.uah.huertojpa.depositoAgua.aplicacion.state.Estado;
 import es.uah.huertojpa.depositoAgua.aplicacion.state.EstadoAgua;
 import es.uah.huertojpa.depositoAgua.infrastructura.database.IDepositoaguaDAO;
+import es.uah.huertojpa.huerto.aplicacion.IHuertoHasUsuarioService;
 import es.uah.huertojpa.huerto.aplicacion.IHuertoService;
 import es.uah.huertojpa.huerto.dominio.entidades.Huerto;
+import es.uah.huertojpa.huerto.dominio.entidades.HuertoHasUsuario;
+import es.uah.huertojpa.persona.aplicacion.IPersonaService;
 import es.uah.huertojpa.sensores.dominio.entidades.SensorDepositoAguaAdapterObserver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -20,6 +23,10 @@ public class DepositoAguaServiceImpl implements IDepositoAguaService, Applicatio
     IDepositoaguaDAO dao;
     @Autowired
     IHuertoService huertoService;
+    @Autowired
+    IPersonaService personaService;
+    @Autowired
+    IHuertoHasUsuarioService huertoHasUsuarioService;
 
     @Override
     public DepositoaguaDto buscarPorID(Integer id) {
@@ -89,6 +96,16 @@ public class DepositoAguaServiceImpl implements IDepositoAguaService, Applicatio
             Float cantidadmedida = Float.parseFloat(event.getSensorDto().getCantidadMedida());
             estado.ejecutar(depositoaguaDto, cantidadmedida);
             dao.actualizar(depositoaguaDto);
+            if(estado.isAlerta(depositoaguaDto, cantidadmedida)){
+                List<HuertoHasUsuario> huertosHasUsuarios = huertoHasUsuarioService.buscarPorIDHuerto(depositoaguaDto.getHuertoIdhuertoId());
+                for(HuertoHasUsuario huertoHasUsuario:huertosHasUsuarios){
+                    Integer idPersona=huertoHasUsuario.getId().getUsuarioPersonaId();
+                    personaService.mandarEmail(idPersona);
+
+                }
+
+
+            }
 
         }
 

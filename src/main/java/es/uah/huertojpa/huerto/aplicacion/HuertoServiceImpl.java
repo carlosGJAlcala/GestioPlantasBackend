@@ -63,17 +63,15 @@ public class HuertoServiceImpl implements IHuertoService {
 
     @Override
     public List<Huerto> buscarHuertoPorUserId(String userName) {
-        List<Huerto> huertos =new ArrayList<Huerto>();
+        Integer idhuerto ;
+        Huerto huerto= this.buscarPorID(1);
         Integer id =usuarioService.buscarPorUserName(userName).getId();
 
-        Huerto huerto= dao.buscarPorID(id);
-
         List<HuertoHasUsuario> huertoHasUsuarios = huertoHasUsuarioService.buscarPorIDUser(id);
-        Integer idhuerto =huertoHasUsuarios.get(0).getId().getHuertoIdhuerto();
-         huerto= dao.buscarPorID(idhuerto);
-        for (int i=0; i<huertoHasUsuarios.size();i++){
-            idhuerto=huertoHasUsuarios.get(i).getId().getHuertoIdhuerto();
-            huerto= dao.buscarPorID(idhuerto);
+        List<Huerto> huertos =new ArrayList<>();
+        for (HuertoHasUsuario huertoHasUsuario : huertoHasUsuarios) {
+            idhuerto = huertoHasUsuario.getId().getHuertoIdhuerto();
+            huerto = this.buscarPorID(idhuerto);
 
             huertos.add(huerto);
         }

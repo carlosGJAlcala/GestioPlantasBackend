@@ -1,4 +1,4 @@
-package es.uah.huertojpa.persona.infrastructura.restcontrolador;
+package es.uah.huertojpa.login.infrasctuctura;
 
 import es.uah.huertojpa.persona.aplicacion.ILoginService;
 import es.uah.huertojpa.persona.dominio.entidades.Administrador;

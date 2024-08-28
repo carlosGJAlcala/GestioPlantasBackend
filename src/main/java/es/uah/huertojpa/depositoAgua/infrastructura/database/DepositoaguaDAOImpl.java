@@ -1,8 +1,8 @@
 package es.uah.huertojpa.depositoAgua.infrastructura.database;
 
 import es.uah.huertojpa.depositoAgua.aplicacion.dto.DepositoaguaDto;
-import es.uah.huertojpa.depositoAgua.dominio.Depositoagua;
 import es.uah.huertojpa.depositoAgua.aplicacion.mapper.DepositoaguaMapper;
+import es.uah.huertojpa.depositoAgua.dominio.DepositoAgua;
 import es.uah.huertojpa.depositoAgua.dominio.DepositoaguaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,7 +20,7 @@ public class DepositoaguaDAOImpl implements IDepositoaguaDAO {
     @Override
     public DepositoaguaDto buscarPorID(Integer id) {
 
-        Optional<Depositoagua> optional = repository.findById(id);
+        Optional<DepositoAgua> optional = repository.findById(id);
         if (optional.isPresent()) {
             return depositoaguaMapper.toDto(optional.get());
         }
@@ -30,7 +30,7 @@ public class DepositoaguaDAOImpl implements IDepositoaguaDAO {
 
     @Override
     public DepositoaguaDto buscarPorUserName(Integer id) {
-        Optional<Depositoagua> optional = repository.findByHuertoIdhuerto_Id(id);
+        Optional<DepositoAgua> optional = repository.findByHuertoIdhuerto_Id(id);
         if (optional.isPresent()) {
             return depositoaguaMapper.toDto(optional.get());
         }
@@ -39,7 +39,7 @@ public class DepositoaguaDAOImpl implements IDepositoaguaDAO {
 
     @Override
     public DepositoaguaDto buscarPorIDSensor(Integer id) {
-        Optional<Depositoagua> optional = repository.findBySensorIdsensor_Id(id);
+        Optional<DepositoAgua> optional = repository.findBySensorIdsensor_Id(id);
         if (optional.isPresent()) {
             return depositoaguaMapper.toDto(optional.get());
         }
@@ -48,7 +48,7 @@ public class DepositoaguaDAOImpl implements IDepositoaguaDAO {
 
     @Override
     public List<DepositoaguaDto> buscarTodos() {
-        List<Depositoagua> depositoaguas = repository.findAll();
+        List<DepositoAgua> depositoaguas = repository.findAll();
         return depositoaguas.stream().map(depositoaguaMapper::toDto).collect(Collectors.toList());
     }
 

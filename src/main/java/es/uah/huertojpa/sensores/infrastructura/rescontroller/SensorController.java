@@ -38,12 +38,12 @@ public class SensorController {
     }
 
     @PutMapping(value= "/sensor")
-    public void actualizar(@RequestBody SensorDto sensor) {
-        service.actualizar(sensor);
+    public boolean actualizar(@RequestBody SensorDto sensor) {
+        return service.actualizar(sensor);
     }
     @PutMapping(value= "/sensorDepositoAgua")
-    public void actualizarDepositoAgua(@RequestBody SensorDto sensor) {
-        service.actualizarDepositoAgua(sensor);
+    public boolean actualizarDepositoAgua(@RequestBody SensorDto sensor) {
+        return service.actualizarDepositoAgua(sensor);
     }
     @DeleteMapping(value = "/sensor/{id}",produces = MediaType.TEXT_PLAIN_VALUE)
     public String eliminar(@PathVariable("id") Integer id) {
