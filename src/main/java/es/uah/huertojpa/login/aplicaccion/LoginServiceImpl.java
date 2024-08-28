@@ -1,9 +1,9 @@
 package es.uah.huertojpa.login.aplicaccion;
 
-import es.uah.huertojpa.persona.aplicacion.ILoginService;
+import es.uah.huertojpa.jwt.JwtService;
 import es.uah.huertojpa.persona.dominio.entidades.Administrador;
-import es.uah.huertojpa.persona.dominio.entidades.Login;
-import es.uah.huertojpa.persona.dominio.entidades.LoginResp;
+import es.uah.huertojpa.login.dominio.LoginRequest;
+import es.uah.huertojpa.login.dominio.LoginResponse;
 import es.uah.huertojpa.persona.dominio.entidades.Persona;
 import es.uah.huertojpa.persona.infrastructura.database.IAdministradorDAO;
 import es.uah.huertojpa.persona.infrastructura.database.IPersonaDAO;
@@ -19,14 +19,17 @@ public class LoginServiceImpl implements ILoginService {
     IAdministradorDAO administradorDAO;
     @Autowired
     IUsuarioDAO usuarioDAO;
+    @Autowired
+    JwtService jwtService;
     @Override
-    public LoginResp auth(Login login) {
-        LoginResp respuesta = new LoginResp();
+    public LoginResponse auth(LoginRequest login) {
+        LoginResponse respuesta = new LoginResponse();
         if(personaDAO.buscarPorUserNameYPassword(login.getUserName(),login.getPassword())!=null){
             Persona persona=personaDAO.buscarPorUserNameYPassword(login.getUserName(),login.getPassword());
             respuesta.setIdUser(persona.getId().toString());
             respuesta.setUserName(persona.getUsuario());
             respuesta.setResultado("Autentificiacion correcta");
+            respuesta.setToken(jwtService.getToken(persona));
             if(isAdmind(persona.getId())){
                Administrador admin= administradorDAO.buscarPorId(persona.getId());
                 respuesta.setPermisoAdmin("1");

@@ -1,10 +1,17 @@
 package es.uah.huertojpa.persona.dominio.entidades;
 
+import es.uah.huertojpa.login.dominio.Role;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "persona")
-public class Persona {
+public class Persona  implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
@@ -27,6 +34,16 @@ public class Persona {
 
     @Column(name = "DNI", length = 45)
     private String dni;
+    @Enumerated(EnumType.STRING)
+    Role role;
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     public Integer getId() {
         return id;
@@ -84,4 +101,38 @@ public class Persona {
         this.dni = dni;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public String getPassword() {
+        return passwordSHA256;
+    }
+
+    @Override
+    public String getUsername() {
+        return usuario;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

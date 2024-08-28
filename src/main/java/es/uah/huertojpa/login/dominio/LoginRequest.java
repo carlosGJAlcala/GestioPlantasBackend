@@ -1,9 +1,9 @@
-package es.uah.huertojpa.persona.dominio.entidades;
+package es.uah.huertojpa.login.dominio;
 
-public class Login {
+public class LoginRequest {
     private String userName,Password;
 
-    public Login(String userName, String password) {
+    public LoginRequest(String userName, String password) {
         this.userName = userName;
         Password = password;
     }

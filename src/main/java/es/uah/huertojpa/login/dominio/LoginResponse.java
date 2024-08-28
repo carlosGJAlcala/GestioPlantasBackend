@@ -1,16 +1,17 @@
-package es.uah.huertojpa.persona.dominio.entidades;
+package es.uah.huertojpa.login.dominio;
 
-public class LoginResp {
-    String userName, idUser,permisoAdmin ,resultado;
+public class LoginResponse {
+    String userName, idUser,permisoAdmin ,resultado ,token;
 
-    public LoginResp(String userName, String idUser, String permisoAdmin, String resultado) {
+    public LoginResponse(String userName, String idUser, String permisoAdmin, String resultado, String token) {
         this.userName = userName;
         this.idUser = idUser;
         this.permisoAdmin = permisoAdmin;
         this.resultado = resultado;
+        this.token = token;
     }
 
-    public LoginResp() {
+    public LoginResponse() {
     }
 
     public String getUserName() {
@@ -43,5 +44,13 @@ public class LoginResp {
 
     public void setResultado(String resultado) {
         this.resultado = resultado;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
