@@ -37,11 +37,11 @@ public class SensorController {
         return String.valueOf(service.guardar(sensor));
     }
 
-    @PutMapping(value= "/sensor")
+    @PutMapping(value= "/auth/sensor")
     public boolean actualizar(@RequestBody SensorDto sensor) {
         return service.actualizar(sensor);
     }
-    @PutMapping(value= "/sensorDepositoAgua")
+    @PutMapping(value= "/auth/sensorDepositoAgua")
     public boolean actualizarDepositoAgua(@RequestBody SensorDto sensor) {
         return service.actualizarDepositoAgua(sensor);
     }
