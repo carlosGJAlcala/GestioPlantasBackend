@@ -1,4 +1,4 @@
-package es.uah.huertojpa.maceta.infrastructura.rescontroller;
+package es.uah.huertojpa.maceta.infrastructura.restcontroller;
 
 import es.uah.huertojpa.maceta.aplicacion.IMacetaHasSensorService;
 import es.uah.huertojpa.maceta.dominio.MacetaHasSensor;

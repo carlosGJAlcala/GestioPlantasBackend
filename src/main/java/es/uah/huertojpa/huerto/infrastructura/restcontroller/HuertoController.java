@@ -1,4 +1,4 @@
-package es.uah.huertojpa.huerto.infrastructura.rescontroller;
+package es.uah.huertojpa.huerto.infrastructura.restcontroller;
 
 import es.uah.huertojpa.huerto.aplicacion.IHuertoService;
 import es.uah.huertojpa.huerto.dominio.entidades.Huerto;

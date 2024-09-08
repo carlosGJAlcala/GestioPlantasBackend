@@ -1,6 +1,7 @@
 package es.uah.huertojpa.huerto.aplicacion;
 
 import es.uah.huertojpa.huerto.dominio.entidades.Huerto;
+import es.uah.huertojpa.maceta.dominio.Humedad;
 
 import java.util.List;
 

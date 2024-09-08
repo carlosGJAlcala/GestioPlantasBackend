@@ -1,7 +1,6 @@
-package es.uah.huertojpa.huerto.infrastructura.rescontroller;
+package es.uah.huertojpa.huerto.infrastructura.restcontroller;
 
 import es.uah.huertojpa.huerto.aplicacion.IHuertoHasUsuarioService;
-import es.uah.huertojpa.huerto.dominio.entidades.Huerto;
 import es.uah.huertojpa.huerto.dominio.entidades.HuertoHasUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

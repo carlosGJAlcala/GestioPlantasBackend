@@ -10,8 +10,8 @@ public class EstadoLuz implements Estado{
         Estado feliz = new EstadoFeliz();
         Estado triste = new EstadoTriste();
         Float nivelActual=t.getNivelActualLuminosidad();
-        Float nivelMinimoRequerido=2500.0F;
-        Float nivelMaximoRequerido=5500.0F;
+        Float nivelMinimoRequerido=t.getTipoplanta().getNivelLuxNecesarioMinimo();
+        Float nivelMaximoRequerido=t.getTipoplanta().getNivelLuxNecesarioMaximo();
 
 
 

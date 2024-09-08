@@ -1,6 +1,7 @@
 package es.uah.huertojpa.persona.aplicacion;
 
 import com.google.common.hash.Hashing;
+import es.uah.huertojpa.mensajería.IMediador;
 import es.uah.huertojpa.persona.dominio.entidades.Persona;
 import es.uah.huertojpa.persona.infrastructura.database.IPersonaDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 public class PersonaServiceImpl implements IPersonaService{
     @Autowired
     IPersonaDAO personaDAO;
-    @Autowired
-    private JavaMailSender mailSender;
+
     @Override
     public List<Persona> buscarTodas() {
         return personaDAO.buscarTodas();
@@ -32,6 +32,8 @@ public class PersonaServiceImpl implements IPersonaService{
         return personaDAO.buscarPorUserName(userName);
     }
 
+    @Autowired
+    IMediador mediador;
     @Override
     public boolean guardarPersona(Persona persona) {
         if(personaDAO.buscarPorId(persona.getId())==null){
@@ -79,14 +81,9 @@ public class PersonaServiceImpl implements IPersonaService{
     public boolean mandarEmail(Integer idPersona) {
         Persona persona= this.buscarPorId(idPersona);
         String correo= persona.getCorreoElectronico();
-        try {
-            SimpleMailMessage mensaje = new SimpleMailMessage();
-            mensaje.setTo(correo);
-            mensaje.setSubject("DEPOSITO AGUA");
-            mensaje.setText("El deposito de agua esta vacio");
-            mensaje.setFrom("huertouah@gmail.com");
 
-            mailSender.send(mensaje);
+        try {
+            mediador.enviarMensaje(correo,"DEPOSITO DE AGUA","El deposito de agua esta vacio");
 
             return true;
         } catch (Exception e) {

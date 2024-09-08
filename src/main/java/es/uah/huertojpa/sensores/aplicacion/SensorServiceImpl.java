@@ -4,6 +4,10 @@ import es.uah.huertojpa.depositoAgua.aplicacion.dto.DepositoaguaDto;
 import es.uah.huertojpa.depositoAgua.aplicacion.service.IDepositoAguaService;
 import es.uah.huertojpa.maceta.aplicacion.IMacetaHasSensorService;
 import es.uah.huertojpa.maceta.dominio.MacetaHasSensor;
+import es.uah.huertojpa.registro.aplicacion.IFechaHoraHasSensorService;
+import es.uah.huertojpa.registro.aplicacion.IFechahoraService;
+import es.uah.huertojpa.registro.dominio.entities.Fechahora;
+import es.uah.huertojpa.registro.dominio.entities.FechahoraHasSensorId;
 import es.uah.huertojpa.sensores.dominio.entidades.SensorDepositoAguaPublisher;
 import es.uah.huertojpa.sensores.dominio.entidades.SensorDto;
 import es.uah.huertojpa.sensores.dominio.entidades.SensorPublisher;
@@ -25,6 +29,10 @@ public class SensorServiceImpl implements ISensorService{
     IMacetaHasSensorService macetaHasSensorService;
     @Autowired
     IDepositoAguaService depositoAguaService;
+    @Autowired
+    IFechahoraService fechahoraService;
+    @Autowired
+    IFechaHoraHasSensorService fechaHoraHasSensorService;
     @Override
     public SensorDto buscarPorID(Integer id) {
         return dao.buscarPorID(id);
@@ -52,13 +60,20 @@ public class SensorServiceImpl implements ISensorService{
 
     @Override
     public boolean actualizar(SensorDto obj) {
-        if(dao.buscarPorID(obj.getId())!=null){
-            sensorPublisher.publish(obj);
-            dao.actualizar(obj);
+        Fechahora fechahora=fechahoraService.getTiempoActual();
+        if(fechaHoraHasSensorService.isRegistrado(fechahora,obj)){
+            return false;
+        }else{
+            if(dao.buscarPorID(obj.getId())!=null){
+                sensorPublisher.publish(obj);
+                dao.actualizar(obj);
 
-            return true;
+                return true;
+            }
+            return false;
+
         }
-        return false;
+
     }
 
     @Override
@@ -94,16 +109,7 @@ public class SensorServiceImpl implements ISensorService{
             resultado.add(this.buscarPorID(macetaHasSensor.getId().getSensorIdsensor()));
 
         }
-  /*      for(DepositoaguaDto deposito:depositos){
-            if(resultado==null){
-                resultado=new ArrayList<>();
-            }
-            if(deposito.getSensorIdsensor().getId()!=null){
-                resultado.add(this.buscarPorID(deposito.getSensorIdsensor().getId()));
 
-            }
-
-        }*/
 if(resultado==null){
     resultado=new ArrayList<>();
 }

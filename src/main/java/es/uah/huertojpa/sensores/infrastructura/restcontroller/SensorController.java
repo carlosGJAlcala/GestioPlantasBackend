@@ -1,4 +1,4 @@
-package es.uah.huertojpa.sensores.infrastructura.rescontroller;
+package es.uah.huertojpa.sensores.infrastructura.restcontroller;
 
 import es.uah.huertojpa.sensores.aplicacion.ISensorService;
 import es.uah.huertojpa.sensores.dominio.entidades.SensorDto;

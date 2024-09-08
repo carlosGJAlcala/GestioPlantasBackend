@@ -3,6 +3,9 @@ package es.uah.huertojpa.huerto.aplicacion;
 import es.uah.huertojpa.huerto.dominio.entidades.Huerto;
 import es.uah.huertojpa.huerto.dominio.entidades.HuertoHasUsuario;
 import es.uah.huertojpa.huerto.infrastructura.database.IHuertoDAO;
+import es.uah.huertojpa.maceta.aplicacion.IMacetaService;
+import es.uah.huertojpa.maceta.dominio.Humedad;
+import es.uah.huertojpa.maceta.dominio.Maceta;
 import es.uah.huertojpa.persona.aplicacion.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,11 +23,14 @@ public class HuertoServiceImpl implements IHuertoService {
     @Autowired
     IUsuarioService usuarioService;
 
+
     @Override
     public Huerto buscarPorID(Integer id) {
         Huerto huerto = dao.buscarPorID(id);
         return huerto;
     }
+
+
 
     @Override
     public List<Huerto> buscarTodos() {

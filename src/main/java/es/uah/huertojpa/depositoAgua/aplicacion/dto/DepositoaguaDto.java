@@ -11,14 +11,15 @@ import java.util.Objects;
  * DTO for {@link DepositoAgua}
  */
 public class DepositoaguaDto implements Serializable {
-    private Huerto huertoIdhuerto;
+    private  String estado;
+
     private final Integer id;
     private final Float cantidadMaxima;
-    private final Integer huertoIdhuertoId;
-    private final Integer huertoIdhuertoNumeroMacetas;
     private final Float alturaDeposito;
-    private SensorDto sensorIdsensor;
+    private final SensorDto sensorIdsensor;
+
     private EstadoDeposito estadoDeposito;
+    private Integer huertoIdhuerto;
 
     public EstadoDeposito getEstadoDeposito() {
         return estadoDeposito;
@@ -28,15 +29,15 @@ public class DepositoaguaDto implements Serializable {
         this.estadoDeposito = estadoDeposito;
     }
 
-    private  String estado;
 
-    public DepositoaguaDto(Integer id, Float cantidadMaxima, Integer huertoIdhuertoId, Integer huertoIdhuertoNumeroMacetas, Float alturaDeposito, String estado) {
+    public DepositoaguaDto(Integer id, Float cantidadMaxima, Float alturaDeposito, String estado, SensorDto sensorIdsensor,
+                           Integer huertoIdhuerto) {
         this.id = id;
         this.cantidadMaxima = cantidadMaxima;
-        this.huertoIdhuertoId = huertoIdhuertoId;
-        this.huertoIdhuertoNumeroMacetas = huertoIdhuertoNumeroMacetas;
         this.alturaDeposito = alturaDeposito;
         this.estado = estado;
+        this.sensorIdsensor = sensorIdsensor;
+        this.huertoIdhuerto = huertoIdhuerto;
     }
 
     public void setEstado(String estado) {
@@ -51,13 +52,6 @@ public class DepositoaguaDto implements Serializable {
         return cantidadMaxima;
     }
 
-    public Integer getHuertoIdhuertoId() {
-        return huertoIdhuertoId;
-    }
-
-    public Integer getHuertoIdhuertoNumeroMacetas() {
-        return huertoIdhuertoNumeroMacetas;
-    }
 
     public Float getAlturaDeposito() {
         return alturaDeposito;
@@ -67,9 +61,10 @@ public class DepositoaguaDto implements Serializable {
         return estado;
     }
 
-    public void setSensorIdsensor(SensorDto sensorIdsensor) {
-        this.sensorIdsensor = sensorIdsensor;
-    }
+
+
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -78,15 +73,13 @@ public class DepositoaguaDto implements Serializable {
         DepositoaguaDto entity = (DepositoaguaDto) o;
         return Objects.equals(this.id, entity.id) &&
                 Objects.equals(this.cantidadMaxima, entity.cantidadMaxima) &&
-                Objects.equals(this.huertoIdhuertoId, entity.huertoIdhuertoId) &&
-                Objects.equals(this.huertoIdhuertoNumeroMacetas, entity.huertoIdhuertoNumeroMacetas) &&
                 Objects.equals(this.alturaDeposito, entity.alturaDeposito) &&
                 Objects.equals(this.estado, entity.estado);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, cantidadMaxima, huertoIdhuertoId, huertoIdhuertoNumeroMacetas, alturaDeposito, estado);
+        return Objects.hash(id, cantidadMaxima,  alturaDeposito, estado);
     }
 
     @Override
@@ -94,8 +87,6 @@ public class DepositoaguaDto implements Serializable {
         return getClass().getSimpleName() + "(" +
                 "id = " + id + ", " +
                 "cantidadMaxima = " + cantidadMaxima + ", " +
-                "huertoIdhuertoId = " + huertoIdhuertoId + ", " +
-                "huertoIdhuertoNumeroMacetas = " + huertoIdhuertoNumeroMacetas + ", " +
                 "alturaDeposito = " + alturaDeposito + ", " +
                 "estado = " + estado + ")";
     }
@@ -104,5 +95,11 @@ public class DepositoaguaDto implements Serializable {
         return sensorIdsensor;
     }
 
+    public Integer getHuertoIdhuerto() {
+        return huertoIdhuerto;
+    }
 
+    public void setHuertoIdhuerto(Integer huertoIdhuerto) {
+        this.huertoIdhuerto = huertoIdhuerto;
+    }
 }

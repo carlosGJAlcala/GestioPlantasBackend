@@ -15,7 +15,7 @@ public interface DepositoaguaRepository extends JpaRepository<DepositoAgua, Inte
 
     Optional<DepositoAgua> findBySensorIdsensor_Id(Integer id);
 
-    Optional<DepositoAgua> findByHuertoIdhuerto_Id(Integer id);
+    Optional<DepositoAgua> findByHuertoIdhuerto(Integer huertoIdhuerto);
 
 
     @Transactional

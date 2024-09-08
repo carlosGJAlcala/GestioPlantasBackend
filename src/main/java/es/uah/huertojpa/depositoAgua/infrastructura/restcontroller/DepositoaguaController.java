@@ -1,4 +1,4 @@
-package es.uah.huertojpa.depositoAgua.infrastructura.rescontroller;
+package es.uah.huertojpa.depositoAgua.infrastructura.restcontroller;
 
 import es.uah.huertojpa.depositoAgua.aplicacion.service.IDepositoAguaService;
 import es.uah.huertojpa.depositoAgua.aplicacion.dto.DepositoaguaDto;

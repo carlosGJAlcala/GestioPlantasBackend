@@ -35,7 +35,7 @@ public class DepositoAguaServiceImpl implements IDepositoAguaService, Applicatio
 
     @Override
     public DepositoaguaDto buscarporIdHuerto(Integer id) {
-        return dao.buscarPorUserName(id);
+        return dao.buscarPorIdHuerto(id);
     }
 
     @Override
@@ -97,7 +97,7 @@ public class DepositoAguaServiceImpl implements IDepositoAguaService, Applicatio
             estado.ejecutar(depositoaguaDto, cantidadmedida);
             dao.actualizar(depositoaguaDto);
             if(estado.isAlerta(depositoaguaDto, cantidadmedida)){
-                List<HuertoHasUsuario> huertosHasUsuarios = huertoHasUsuarioService.buscarPorIDHuerto(depositoaguaDto.getHuertoIdhuertoId());
+                List<HuertoHasUsuario> huertosHasUsuarios = huertoHasUsuarioService.buscarPorIDHuerto(depositoaguaDto.getHuertoIdhuerto());
                 for(HuertoHasUsuario huertoHasUsuario:huertosHasUsuarios){
                     Integer idPersona=huertoHasUsuario.getId().getUsuarioPersonaId();
                     personaService.mandarEmail(idPersona);

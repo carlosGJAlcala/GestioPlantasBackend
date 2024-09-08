@@ -15,9 +15,7 @@ public class DepositoAgua {
     @Column(name = "CantidadMaxima")
     private Float cantidadMaxima;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "Huerto_idHuerto", nullable = false)
-    private Huerto huertoIdhuerto;
+
 
     @Column(name = "AlturaDeposito")
     private Float alturaDeposito;
@@ -28,6 +26,17 @@ public class DepositoAgua {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Sensor_idSensor")
     private Sensor sensorIdsensor;
+
+    @Column(name = "Huerto_idHuerto", nullable = false)
+    private Integer huertoIdhuerto;
+
+    public Integer getHuertoIdhuerto() {
+        return huertoIdhuerto;
+    }
+
+    public void setHuertoIdhuerto(Integer huertoIdhuerto) {
+        this.huertoIdhuerto = huertoIdhuerto;
+    }
 
     public Integer getId() {
         return id;
@@ -45,13 +54,7 @@ public class DepositoAgua {
         this.cantidadMaxima = cantidadMaxima;
     }
 
-    public Huerto getHuertoIdhuerto() {
-        return huertoIdhuerto;
-    }
 
-    public void setHuertoIdhuerto(Huerto huertoIdhuerto) {
-        this.huertoIdhuerto = huertoIdhuerto;
-    }
 
     public Float getAlturaDeposito() {
         return alturaDeposito;

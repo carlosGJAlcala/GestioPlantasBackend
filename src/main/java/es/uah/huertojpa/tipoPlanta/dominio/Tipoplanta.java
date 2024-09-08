@@ -19,8 +19,8 @@ public class Tipoplanta {
     @Column(name = "NivelHumedadNecesarioMinimo")
     private Float nivelHumedadNecesarioMinimo;
 
-    @Column(name = "NivelNitrogenoNecesarioMinimo")
-    private Float nivelNitrogenoNecesarioMinimo;
+    @Column(name = "NivelLuxNecesarioMinimo")
+    private Float nivelLuxNecesarioMinimo;
 
     @Column(name = "NivelTemperaturaNecesarioMinimo")
     private Float nivelTemperaturaNecesarioMinimo;
@@ -28,8 +28,8 @@ public class Tipoplanta {
     @Column(name = "NivelHumedadNecesarioMaximo")
     private Float nivelHumedadNecesarioMaximo;
 
-    @Column(name = "NivelNitrogenoNecesarioMaximo")
-    private Float nivelNitrogenoNecesarioMaximo;
+    @Column(name = "NivelLuxNecesarioMaximo")
+    private Float nivelLuxNecesarioMaximo;
 
     @Column(name = "NivelTemperaturaNecesarioMaximo")
     private Float nivelTemperaturaNecesarioMaximo;
@@ -72,12 +72,12 @@ public class Tipoplanta {
         this.nivelHumedadNecesarioMinimo = nivelHumedadNecesarioMinimo;
     }
 
-    public Float getNivelNitrogenoNecesarioMinimo() {
-        return nivelNitrogenoNecesarioMinimo;
+    public Float getNivelLuxNecesarioMinimo() {
+        return nivelLuxNecesarioMinimo;
     }
 
-    public void setNivelNitrogenoNecesarioMinimo(Float nivelNitrogenoNecesarioMinimo) {
-        this.nivelNitrogenoNecesarioMinimo = nivelNitrogenoNecesarioMinimo;
+    public void setNivelLuxNecesarioMinimo(Float nivelLuxNecesarioMinimo) {
+        this.nivelLuxNecesarioMinimo = nivelLuxNecesarioMinimo;
     }
 
     public Float getNivelTemperaturaNecesarioMinimo() {
@@ -96,12 +96,12 @@ public class Tipoplanta {
         this.nivelHumedadNecesarioMaximo = nivelHumedadNecesarioMaximo;
     }
 
-    public Float getNivelNitrogenoNecesarioMaximo() {
-        return nivelNitrogenoNecesarioMaximo;
+    public Float getNivelLuxNecesarioMaximo() {
+        return nivelLuxNecesarioMaximo;
     }
 
-    public void setNivelNitrogenoNecesarioMaximo(Float nivelNitrogenoNecesarioMaximo) {
-        this.nivelNitrogenoNecesarioMaximo = nivelNitrogenoNecesarioMaximo;
+    public void setNivelLuxNecesarioMaximo(Float nivelLuxNecesarioMaximo) {
+        this.nivelLuxNecesarioMaximo = nivelLuxNecesarioMaximo;
     }
 
     public Float getNivelTemperaturaNecesarioMaximo() {

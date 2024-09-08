@@ -29,8 +29,8 @@ public class DepositoaguaDAOImpl implements IDepositoaguaDAO {
     }
 
     @Override
-    public DepositoaguaDto buscarPorUserName(Integer id) {
-        Optional<DepositoAgua> optional = repository.findByHuertoIdhuerto_Id(id);
+    public DepositoaguaDto buscarPorIdHuerto(Integer id) {
+        Optional<DepositoAgua> optional = repository.findByHuertoIdhuerto(id);
         if (optional.isPresent()) {
             return depositoaguaMapper.toDto(optional.get());
         }

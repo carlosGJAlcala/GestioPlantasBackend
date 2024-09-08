@@ -1,8 +1,11 @@
 package es.uah.huertojpa.maceta.aplicacion;
 
+import es.uah.huertojpa.maceta.dominio.Humedad;
 import es.uah.huertojpa.maceta.dominio.Maceta;
 import es.uah.huertojpa.maceta.dominio.MacetaHasSensor;
 import es.uah.huertojpa.maceta.infrastructura.database.IMacetaHasSensorDAO;
+import es.uah.huertojpa.planta.aplicacion.services.IPlantaService;
+import es.uah.huertojpa.tipoPlanta.aplicacion.ITipoPlantaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +16,7 @@ public class MacetaHasSensorServiceImpl implements IMacetaHasSensorService {
     IMacetaHasSensorDAO dao;
     @Autowired
     IMacetaService macetaService;
+
     @Override
     public List<MacetaHasSensor> buscarPorIDMaceta(Integer id) {
         return dao.buscarPorIDMaceta(id);
@@ -39,10 +43,13 @@ public class MacetaHasSensorServiceImpl implements IMacetaHasSensorService {
         return resultado;
     }
 
+
     @Override
     public List<MacetaHasSensor> buscarTodos() {
         return dao.buscarTodos();
     }
+
+
 
     @Override
     public void guardar(MacetaHasSensor obj) {

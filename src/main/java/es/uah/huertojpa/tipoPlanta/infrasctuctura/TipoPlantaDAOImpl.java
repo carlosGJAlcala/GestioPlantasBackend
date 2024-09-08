@@ -29,7 +29,7 @@ public class TipoPlantaDAOImpl implements ITipoPlantaDAO {
 
     @Override
     public List<Tipoplanta> buscarTiposPlantasPorNivelNitrogenoMinimo(Float f) {
-        return tipoplanta.findByNivelNitrogenoNecesarioMinimo(f);
+        return null;
     }
 
     @Override

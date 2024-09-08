@@ -1,6 +1,7 @@
-package es.uah.huertojpa.maceta.infrastructura.rescontroller;
+package es.uah.huertojpa.maceta.infrastructura.restcontroller;
 
 import es.uah.huertojpa.maceta.aplicacion.IMacetaService;
+import es.uah.huertojpa.maceta.dominio.Humedad;
 import es.uah.huertojpa.maceta.dominio.Maceta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -30,6 +31,16 @@ public class MacetaController {
     public List<Maceta> buscarPorUserName(@PathVariable("userName") String userName) {
         return service.buscarPorUserName(userName);
     }
+
+    @GetMapping("/auth/maceta/huerto/humedades/{id}")
+    public List<Humedad> getAllHumedades(@PathVariable("id") Integer id) {
+        return service.getAllHumdedadeByHuerto(id);
+    }
+    @GetMapping("/auth/maceta/huerto/humedad/{id}")
+    public Humedad getAllHumedad(@PathVariable("id") Integer id) {
+        return service.conseguirDatosHumedad(id);
+    }
+
 
     @PostMapping(value= "/maceta")
     public String guardarMaceta(@RequestBody Maceta maceta) {

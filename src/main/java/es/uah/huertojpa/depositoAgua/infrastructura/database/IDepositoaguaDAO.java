@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IDepositoaguaDAO {
     DepositoaguaDto buscarPorID(Integer id);
-    DepositoaguaDto buscarPorUserName(Integer id);
+    DepositoaguaDto buscarPorIdHuerto(Integer id);
 
     DepositoaguaDto buscarPorIDSensor(Integer id);
     List<DepositoaguaDto> buscarTodos();

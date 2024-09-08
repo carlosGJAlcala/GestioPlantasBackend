@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface IPlantaService {
 
+
     List<PlantaDto> buscarPorEstado(EstadoPlanta estado);
     List<PlantaDto>  buscarPorMacetaID(Integer id);
     PlantaDto buscarPorId(Integer id);

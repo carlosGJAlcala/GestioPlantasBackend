@@ -12,7 +12,6 @@ public interface TipoPlantaRepository extends JpaRepository<Tipoplanta, Integer>
 
     List<Tipoplanta> findByNivelHumedadNecesarioMinimo(Float nivelHumedadNecesarioMinimo);
 
-    List<Tipoplanta> findByNivelNitrogenoNecesarioMinimo(Float nivelNitrogenoNecesarioMinimo);
 
     List<Tipoplanta> findByNivelTemperaturaNecesarioMinimo(Float nivelTemperaturaNecesarioMinimo);
 
