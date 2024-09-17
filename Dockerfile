@@ -11,6 +11,7 @@ COPY . .
 EXPOSE 8080
 
 # Comando para ejecutar la aplicación
-RUN mvn clean install
+RUN mvn clean compile package 
+
 
 CMD mvn spring-boot:run

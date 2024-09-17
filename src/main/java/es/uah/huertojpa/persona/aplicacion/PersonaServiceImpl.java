@@ -37,7 +37,6 @@ public class PersonaServiceImpl implements IPersonaService{
     @Override
     public boolean guardarPersona(Persona persona) {
         if(personaDAO.buscarPorId(persona.getId())==null){
-            // guardamos las contraseña como hash
             String passSinHash =persona.getPasswordSHA256();
             String sha256hex = Hashing.sha256()
                     .hashString(passSinHash, StandardCharsets.UTF_8)
