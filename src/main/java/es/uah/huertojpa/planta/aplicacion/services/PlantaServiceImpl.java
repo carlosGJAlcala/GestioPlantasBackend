@@ -81,13 +81,9 @@ public class PlantaServiceImpl implements IPlantaService, ApplicationListener<Se
     @Override
     public  List<PlantaDto> buscarPorUserName(String userName) {
         List<Maceta> macetas= macetaService.buscarPorUserName(userName);
-        List<PlantaDto> resultado = null;
+        List<PlantaDto> resultado = new ArrayList<>();
         for(Maceta maceta: macetas){
-            if(resultado==null){
-                resultado=this.buscarPorMacetaID(maceta.getId());
-            }else {
-                resultado.addAll(this.buscarPorMacetaID(maceta.getId()));
-            }
+            resultado.addAll(this.buscarPorMacetaID(maceta.getId()));
         }
         return resultado;
     }
@@ -134,7 +130,7 @@ public class PlantaServiceImpl implements IPlantaService, ApplicationListener<Se
                     plantaDto.setNivelActualTemperatura(cantidadFloat);
                     plantaDAO.actualizarPlantaTemperatura(plantaDto);
                     estado = new EstadoCalor();
-                } else if (("LUZ".equalsIgnoreCase(magnitudAMedir))) {
+                } else if ("LUZ".equalsIgnoreCase(magnitudAMedir) || "LUMINOSIDAD".equalsIgnoreCase(magnitudAMedir)) {
                     plantaDto.setNivelActualLuminosidad(cantidadFloat);
                     plantaDAO.actualizarPlantaLux(plantaDto);
                     estado = new EstadoLuz();

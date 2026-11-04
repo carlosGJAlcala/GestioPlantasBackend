@@ -6,6 +6,17 @@ public class Humedad {
 
     Integer numeroPlantas;
 
+    /** Altura (cm) del depósito del huerto de la maceta; el ESP32 la usa para calcular el % de llenado (backlog E5). */
+    Float alturaDeposito;
+
+    public Float getAlturaDeposito() {
+        return alturaDeposito;
+    }
+
+    public void setAlturaDeposito(Float alturaDeposito) {
+        this.alturaDeposito = alturaDeposito;
+    }
+
     public Humedad() {
         this.humedadMediaMinimaRequerida=0.0F;
         this.humedadMediaMaximaRequerida=0.0F;
@@ -48,9 +59,13 @@ public class Humedad {
     }
 
     public void addHumedadReqPorPlanta(Float MedidaMinima, Float MedidaMaxima){
+        if (MedidaMinima == null || MedidaMaxima == null) {
+            return;
+        }
+        // Media incremental correcta: antes se hacía (mediaAnterior + nuevo) / n, que no es la media.
         numeroPlantas=numeroPlantas+1;
-        humedadMediaMinimaRequerida=(humedadMediaMinimaRequerida +MedidaMinima)/numeroPlantas;
-        humedadMediaMaximaRequerida=(humedadMediaMaximaRequerida +MedidaMaxima)/numeroPlantas;
+        humedadMediaMinimaRequerida=humedadMediaMinimaRequerida + (MedidaMinima - humedadMediaMinimaRequerida)/numeroPlantas;
+        humedadMediaMaximaRequerida=humedadMediaMaximaRequerida + (MedidaMaxima - humedadMediaMaximaRequerida)/numeroPlantas;
 
     }
 }

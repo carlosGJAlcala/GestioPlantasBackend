@@ -1,5 +1,8 @@
 package es.uah.huertojpa.registro.aplicacion;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 import es.uah.huertojpa.registro.dominio.entities.Fechahora;
 import es.uah.huertojpa.registro.infrastructura.database.IFechahoraDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,13 +55,15 @@ public class FechahoraServiceImpl implements IFechahoraService{
 
     @Override
     public Fechahora getTiempoActual() {
-        Date fechadate= new Date();
+        // Antes se usaba java.util.Date#getYear/getMonth/getDay: año-1900, mes 0-11 y getDay() = DÍA DE LA SEMANA.
+        // Eso hacía que la misma franja (p.ej. martes 10:05) colisionara cada semana y se descartaran lecturas.
+        LocalDateTime ahora = LocalDateTime.now(ZoneId.of("Europe/Madrid"));
         String year,day,month,hour,minute;
-        year=fechadate.getYear()+"";
-        month=fechadate.getMonth()+"";
-        day=fechadate.getDay()+"";
-        hour=fechadate.getHours()+"";
-        minute=fechadate.getMinutes()+"";
+        year=String.valueOf(ahora.getYear());
+        month=String.valueOf(ahora.getMonthValue());
+        day=String.valueOf(ahora.getDayOfMonth());
+        hour=String.valueOf(ahora.getHour());
+        minute=String.valueOf(ahora.getMinute());
         if(buscarPorFecha(year,month,day,hour,minute)!=null){
             return buscarPorFecha(year,month,day,hour,minute);
         }else {

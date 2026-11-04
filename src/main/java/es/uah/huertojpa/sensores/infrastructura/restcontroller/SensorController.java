@@ -28,7 +28,7 @@ public class SensorController {
         return service.buscarByUserName(userName);
     }
 
-    @GetMapping("/sensor/{nombre}")
+    @GetMapping("/sensor/nombre/{nombre}")
     public List<SensorDto>  buscarporNombre(@PathVariable("nombre") String nombre) {
         return service.buscarPorNombre(nombre);
     }

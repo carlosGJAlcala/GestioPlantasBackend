@@ -14,8 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class DepositoAguaServiceImpl implements IDepositoAguaService, ApplicationListener<SensorDepositoAguaAdapterObserver> {
@@ -76,27 +80,48 @@ public class DepositoAguaServiceImpl implements IDepositoAguaService, Applicatio
 
     @Override
     public List<DepositoaguaDto> buscarPorUserName(String userName) {
-        List<DepositoaguaDto> resultado=null;
+        List<DepositoaguaDto> resultado=new ArrayList<>();
         List<Huerto> huertos= huertoService.buscarHuertoPorUserId(userName);
         for(Huerto huerto : huertos){
-            if(resultado==null){
-                resultado=new ArrayList<>();
+            DepositoaguaDto deposito = this.buscarporIdHuerto(huerto.getId());
+            if(deposito!=null){
+                resultado.add(deposito);
             }
-            resultado.add(this.buscarporIdHuerto(huerto.getId()));
         }
         return resultado;
+    }
+
+    /** Evita mandar un correo por cada lectura (el ESP32 envía una por minuto) mientras el depósito siga bajo. */
+    private static final Duration ESPERA_ENTRE_ALERTAS = Duration.ofHours(12);
+    private final Map<Integer, Instant> ultimaAlertaPorDeposito = new ConcurrentHashMap<>();
+
+    private boolean debeAvisar(Integer idDeposito) {
+        Instant ahora = Instant.now();
+        Instant ultima = ultimaAlertaPorDeposito.get(idDeposito);
+        if (ultima != null && Duration.between(ultima, ahora).compareTo(ESPERA_ENTRE_ALERTAS) < 0) {
+            return false;
+        }
+        ultimaAlertaPorDeposito.put(idDeposito, ahora);
+        return true;
     }
 
     @Override
     public void onApplicationEvent(SensorDepositoAguaAdapterObserver event) {
         DepositoaguaDto depositoaguaDto;
-        if (dao.buscarPorIDSensor(event.getSensorDto().getId()).getId() != null) {
-            depositoaguaDto = dao.buscarPorIDSensor(event.getSensorDto().getId());
+        depositoaguaDto = dao.buscarPorIDSensor(event.getSensorDto().getId());
+        if (depositoaguaDto != null && depositoaguaDto.getId() != null) {
             Estado estado = new EstadoAgua();
             Float cantidadmedida = Float.parseFloat(event.getSensorDto().getCantidadMedida());
+            if (cantidadmedida < 0) {
+                // El ultrasonidos devuelve -1 cuando no hay eco: lectura inválida, no se actualiza.
+                return;
+            }
             estado.ejecutar(depositoaguaDto, cantidadmedida);
             dao.actualizar(depositoaguaDto);
-            if(estado.isAlerta(depositoaguaDto, cantidadmedida)){
+            if (!estado.isAlerta(depositoaguaDto, cantidadmedida)) {
+                ultimaAlertaPorDeposito.remove(depositoaguaDto.getId()); // se ha rellenado: rearmar la alerta
+            }
+            if(estado.isAlerta(depositoaguaDto, cantidadmedida) && debeAvisar(depositoaguaDto.getId())){
                 List<HuertoHasUsuario> huertosHasUsuarios = huertoHasUsuarioService.buscarPorIDHuerto(depositoaguaDto.getHuertoIdhuerto());
                 for(HuertoHasUsuario huertoHasUsuario:huertosHasUsuarios){
                     Integer idPersona=huertoHasUsuario.getId().getUsuarioPersonaId();

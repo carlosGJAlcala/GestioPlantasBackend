@@ -1,5 +1,7 @@
 package es.uah.huertojpa.maceta.aplicacion;
 
+import es.uah.huertojpa.depositoAgua.aplicacion.dto.DepositoaguaDto;
+import es.uah.huertojpa.depositoAgua.infrastructura.database.IDepositoaguaDAO;
 import es.uah.huertojpa.huerto.aplicacion.IHuertoService;
 import es.uah.huertojpa.huerto.dominio.entidades.Huerto;
 import es.uah.huertojpa.maceta.dominio.Humedad;
@@ -31,6 +33,8 @@ public class MacetaServiceImpl implements IMacetaService {
     IPlantaDAO plantaService;
     @Autowired
     ITipoPlantaDAO tipoPlantaService;
+    @Autowired
+    IDepositoaguaDAO depositoaguaDAO;
     @Override
     public Maceta buscarPorID(Integer id) {
         return dao.buscarPorID(id);
@@ -72,8 +76,18 @@ public class MacetaServiceImpl implements IMacetaService {
         Humedad resultado= new Humedad();
         resultado.setIdMaceta(idMaceta);
         for (PlantaDto planta:plantas){
-            Tipoplanta tipoPlanta = tipoPlantaService.buscarPorId(planta.getId());
+            Tipoplanta tipoPlanta = tipoPlantaService.buscarPorId(planta.getTipoplantaIdtipoplanta());
+            if (tipoPlanta == null) {
+                continue;
+            }
             resultado.addHumedadReqPorPlanta(tipoPlanta.getNivelHumedadNecesarioMinimo(),tipoPlanta.getNivelHumedadNecesarioMaximo());
+        }
+        Maceta maceta = dao.buscarPorID(idMaceta);
+        if (maceta != null && maceta.getHuertoIdhuerto() != null) {
+            DepositoaguaDto deposito = depositoaguaDAO.buscarPorIdHuerto(maceta.getHuertoIdhuerto());
+            if (deposito != null) {
+                resultado.setAlturaDeposito(deposito.getAlturaDeposito());
+            }
         }
         return resultado;
     }
@@ -101,16 +115,11 @@ public class MacetaServiceImpl implements IMacetaService {
     @Override
     public List<Maceta> buscarPorUserName(String userName) {
         List<Huerto> huertos = huertoService.buscarHuertoPorUserId(userName);
-        List<Maceta> resultado=null;
+        List<Maceta> resultado=new ArrayList<>();
         List<Maceta> maceta;
         for (Huerto huerto: huertos){
             maceta=dao.buscarPorIDHuerto(huerto.getId());
-            if(resultado==null){
-
-                resultado=maceta;
-            }else {
-                resultado.addAll(maceta);
-            }
+            resultado.addAll(maceta);
         }
         return resultado;
     }
