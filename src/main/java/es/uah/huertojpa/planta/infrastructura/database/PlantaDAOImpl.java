@@ -56,11 +56,20 @@ public class PlantaDAOImpl implements IPlantaDAO {
 
     }
 
+    /**
+     * W13 (2026-11-21): antes el cuerpo estaba comentado y {@code PUT /planta} respondía 200 sin guardar nada. Se
+     * cambian solo los datos que edita el usuario (nombre, fecha, tipo y maceta); las lecturas y el estado los pone
+     * el sensor y no se pisan con lo que mande el formulario.
+     */
     @Override
     public void actualizarPlanta(PlantaDto obj) {
-  /*      Planta planta = plantaMapper.mapper.toEntity(obj);
-        repository.updateNombrePlantaAndFechaPlantacionAndEstadoAndTipoplantaIdtipoplantaAndMacetaIdmacetaById(planta.getNombrePlanta(), planta.getFechaPlantacion(), planta.getEstado(), planta.getTipoplantaIdtipoplanta(), planta.getMacetaIdmaceta(), planta.getId());
-*/
+        repository.findById(obj.getId()).ifPresent(planta -> {
+            planta.setNombrePlanta(obj.getNombrePlanta());
+            planta.setFechaPlantacion(obj.getFechaPlantacion());
+            planta.setTipoplantaIdtipoplanta(obj.getTipoplantaIdtipoplanta());
+            planta.setMacetaIdmaceta(obj.getMacetaIdmaceta());
+            repository.save(planta);
+        });
     }
 
     @Override

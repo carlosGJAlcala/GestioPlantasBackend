@@ -13,6 +13,9 @@ public interface IDepositoAguaService {
     List<DepositoaguaDto> buscarTodos();
     boolean guardar(DepositoaguaDto obj);
 
+    /** Motivo legible por el que no se puede guardar el depósito, o null si se puede. */
+    String motivoNoValido(DepositoaguaDto obj);
+
     boolean actualizar(DepositoaguaDto obj);
     boolean eliminar(Integer id);
 

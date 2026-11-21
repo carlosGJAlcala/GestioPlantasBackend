@@ -1,5 +1,6 @@
 package es.uah.huertojpa.persona.dominio.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import es.uah.huertojpa.huerto.dominio.entidades.Huerto;
 import jakarta.persistence.*;
 
@@ -7,6 +8,9 @@ import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+// Estas entidades llegan a veces como proxy LAZY de Hibernate (p. ej. desde huerto_has_usuario o maceta_has_sensor):
+// sin esto Jackson falla al serializar el campo interno «hibernateLazyInitializer» (500 en «Mis huertos»).
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "usuario")
 public class Usuario {

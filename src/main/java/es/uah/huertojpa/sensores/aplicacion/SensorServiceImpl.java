@@ -50,12 +50,29 @@ public class SensorServiceImpl implements ISensorService{
 
     @Override
     public boolean guardar(SensorDto obj) {
-        if(dao.buscarPorID(obj.getId())==null){
+        // Alta sin id (los formularios ya no lo piden): lo genera la BD. Antes findById(null) daba un 500.
+        if (obj.getId() == null || dao.buscarPorID(obj.getId())==null) {
             dao.guardar(obj);
 
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean guardar(SensorDto obj, Integer creadoPor) {
+        if (obj.getId() == null || dao.buscarPorID(obj.getId()) == null) {
+            dao.guardar(obj, creadoPor);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean actualizarDatos(SensorDto obj) {
+        if (obj.getId() == null || dao.buscarPorID(obj.getId()) == null) return false;
+        dao.actualizarDatos(obj);
+        return true;
     }
 
     @Override
@@ -97,22 +114,12 @@ public class SensorServiceImpl implements ISensorService{
         return false;
     }
 
+    /**
+     * W12b: sensores de las macetas y del depósito de sus huertos, más los libres que dio de alta. Antes solo miraba
+     * las macetas (el del depósito no salía), repetía un sensor usado en dos macetas y, sin macetas, daba un 500.
+     */
     @Override
     public List<SensorDto> buscarByUserName(String userName) {
-        List<MacetaHasSensor> macetaHasSensors= macetaHasSensorService.buscarPorUserName(userName);
-        List<DepositoaguaDto> depositos = depositoAguaService.buscarPorUserName(userName);
-        List<SensorDto> resultado=null;
-        for(MacetaHasSensor macetaHasSensor:macetaHasSensors){
-            if(resultado==null){
-                resultado=new ArrayList<>();
-            }
-            resultado.add(this.buscarPorID(macetaHasSensor.getId().getSensorIdsensor()));
-
-        }
-
-if(resultado==null){
-    resultado=new ArrayList<>();
-}
-        return resultado;
+        return dao.visiblesPara(userName);
     }
 }

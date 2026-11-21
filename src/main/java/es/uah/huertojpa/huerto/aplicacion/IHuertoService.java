@@ -18,4 +18,7 @@ public interface IHuertoService {
 
     List<Huerto> buscarHuertoPorUserId(String UserName);
 
+    /** Crea el huerto y lo asocia al usuario {@code idPersona} (huerto_has_usuario). false si ya existe o no es usuario. */
+    boolean guardarParaUsuario(Huerto obj, Integer idPersona);
+
 }

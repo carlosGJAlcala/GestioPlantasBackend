@@ -7,7 +7,12 @@ import es.uah.huertojpa.maceta.aplicacion.IMacetaService;
 import es.uah.huertojpa.maceta.dominio.Humedad;
 import es.uah.huertojpa.maceta.dominio.Maceta;
 import es.uah.huertojpa.persona.aplicacion.IUsuarioService;
+import es.uah.huertojpa.huerto.dominio.entidades.HuertoHasUsuarioId;
+import es.uah.huertojpa.huerto.dominio.repository.HuertoHasUsuarioRepository;
+import es.uah.huertojpa.huerto.dominio.repository.HuertoRepository;
+import es.uah.huertojpa.persona.dominio.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +27,35 @@ public class HuertoServiceImpl implements IHuertoService {
     IHuertoHasUsuarioService huertoHasUsuarioService;
     @Autowired
     IUsuarioService usuarioService;
+    @Autowired
+    HuertoRepository huertoRepository;
+    @Autowired
+    HuertoHasUsuarioRepository huertoHasUsuarioRepository;
+    @Autowired
+    UsuarioRepository usuarioRepository;
+
+    @Override
+    @Transactional
+    public boolean guardarParaUsuario(Huerto obj, Integer idPersona) {
+        if (obj == null || idPersona == null) {
+            return false;
+        }
+        obj.setId(null); // V5: siempre un huerto nuevo con id generado; nunca se pisa uno existente
+        var usuario = usuarioRepository.findById(idPersona);
+        if (usuario.isEmpty()) {
+            return false;
+        }
+        Huerto guardado = huertoRepository.save(obj);
+        HuertoHasUsuarioId id = new HuertoHasUsuarioId();
+        id.setHuertoIdhuerto(guardado.getId());
+        id.setUsuarioPersonaId(idPersona);
+        HuertoHasUsuario relacion = new HuertoHasUsuario();
+        relacion.setId(id);
+        relacion.setHuertoIdhuerto(guardado);
+        relacion.setUsuarioPersona(usuario.get());
+        huertoHasUsuarioRepository.save(relacion);
+        return true;
+    }
 
 
     @Override
@@ -39,12 +73,12 @@ public class HuertoServiceImpl implements IHuertoService {
 
     @Override
     public boolean guardar(Huerto obj) {
-        if(dao.buscarPorID(obj.getId())==null){
-            dao.guardar(obj);
-
-            return true;
+        if (obj == null) {
+            return false;
         }
-        return false;
+        obj.setId(null); // V5: alta = huerto nuevo con id generado (el id del cuerpo se ignora)
+        dao.guardar(obj);
+        return true;
     }
 
     @Override

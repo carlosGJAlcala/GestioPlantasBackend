@@ -7,11 +7,13 @@ package es.uah.huertojpa.riego.dominio;
  *   <li>LIMITE_PULSOS: se agotaron los pulsos sin alcanzar el objetivo (sensor desplazado, sustrato muy seco...).</li>
  *   <li>DEPOSITO_VACIO: no se riega porque el depósito está por debajo del mínimo.</li>
  *   <li>SENSOR_ERROR: lectura inválida del ultrasonidos o de humedad; no se riega por seguridad.</li>
+ *   <li>HUMEDAD_MAXIMA: «Regar ahora» descartado porque la tierra ya está en la humedad máxima del tipo.</li>
  * </ul>
  */
 public enum ResultadoRiego {
     OK,
     LIMITE_PULSOS,
     DEPOSITO_VACIO,
-    SENSOR_ERROR
+    SENSOR_ERROR,
+    HUMEDAD_MAXIMA
 }

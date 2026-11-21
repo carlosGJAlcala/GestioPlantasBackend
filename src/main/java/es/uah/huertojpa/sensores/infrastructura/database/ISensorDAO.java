@@ -15,6 +15,14 @@ public interface ISensorDAO {
 
     void guardar(SensorDto obj);
 
+    /** W12b: alta guardando quién lo crea ({@code null} = sin dueño, p. ej. alta del administrador sin persona). */
+    void guardar(SensorDto obj, Integer creadoPor);
+
+    /** W12b: nombre, magnitud y unidades (no la medida). */
+    void actualizarDatos(SensorDto obj);
+
+    List<SensorDto> visiblesPara(String userName);
+
     void actualizar(SensorDto obj);
     void eliminar(Integer id);
 }

@@ -5,6 +5,8 @@ import es.uah.huertojpa.maceta.dominio.Humedad;
 import es.uah.huertojpa.maceta.dominio.Maceta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import es.uah.huertojpa.seguridad.AccesoService;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +16,8 @@ import java.util.List;
 public class MacetaController {
     @Autowired
     IMacetaService service;
+    @Autowired
+    AccesoService acceso;
     @GetMapping("/maceta")
     public List<Maceta> buscarTodasMacetas() {
         return service.buscarTodos();
@@ -43,12 +47,16 @@ public class MacetaController {
 
 
     @PostMapping(value= "/maceta")
-    public String guardarMaceta(@RequestBody Maceta maceta) {
+    public String guardarMaceta(@RequestBody Maceta maceta, Authentication auth) {
+        AccesoService.exigir(acceso.puedeAccederHuerto(auth, maceta.getHuertoIdhuerto())); // S4b: en un huerto suyo
         return String.valueOf(service.guardar(maceta));
     }
 
     @PutMapping(value= "/maceta")
-    public String actualizarMaceta(@RequestBody Maceta maceta) {
+    public String actualizarMaceta(@RequestBody Maceta maceta, Authentication auth) {
+        // S4b: la maceta es suya y no la mueve a un huerto ajeno
+        AccesoService.exigir(acceso.puedeAccederMaceta(auth, maceta.getId())
+                && acceso.puedeAccederHuerto(auth, maceta.getHuertoIdhuerto()));
         return String.valueOf(service.actualizar(maceta));
     }
 

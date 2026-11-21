@@ -2,6 +2,7 @@ package es.uah.huertojpa.maceta.dominio;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface MacetaHasSensorRepository extends JpaRepository<MacetaHasSensor, MacetaHasSensorId> {
@@ -9,6 +10,9 @@ public interface MacetaHasSensorRepository extends JpaRepository<MacetaHasSensor
             ;
 
     List<MacetaHasSensor> findById_SensorIdsensor(Integer sensorIdsensor);
+
+    /** W12b: dónde se usa cada sensor de una lista (pantalla de sensores), en una sola consulta. */
+    List<MacetaHasSensor> findById_SensorIdsensorIn(Collection<Integer> sensorIdsensor);
 
 
 }

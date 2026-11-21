@@ -50,7 +50,8 @@ public class PlantaServiceImpl implements IPlantaService, ApplicationListener<Se
 
     @Override
     public boolean guardarPlanta(PlantaDto obj) {
-        if (plantaDAO.buscarPorId(obj.getId()) == null) {
+        // Alta sin id (los formularios ya no lo piden): lo genera la BD. Antes findById(null) daba un 500.
+        if (obj.getId() == null || plantaDAO.buscarPorId(obj.getId()) == null) {
             plantaDAO.guardarPlanta(obj);
 
             return true;

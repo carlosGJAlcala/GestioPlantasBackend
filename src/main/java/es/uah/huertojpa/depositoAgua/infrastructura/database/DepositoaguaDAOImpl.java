@@ -4,6 +4,7 @@ import es.uah.huertojpa.depositoAgua.aplicacion.dto.DepositoaguaDto;
 import es.uah.huertojpa.depositoAgua.aplicacion.mapper.DepositoaguaMapper;
 import es.uah.huertojpa.depositoAgua.dominio.DepositoAgua;
 import es.uah.huertojpa.depositoAgua.dominio.DepositoaguaRepository;
+import es.uah.huertojpa.sensores.dominio.repository.SensorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +18,8 @@ public class DepositoaguaDAOImpl implements IDepositoaguaDAO {
     DepositoaguaRepository repository;
     @Autowired
     DepositoaguaMapper depositoaguaMapper;
+    @Autowired
+    SensorRepository sensorRepository;
     @Override
     public DepositoaguaDto buscarPorID(Integer id) {
 
@@ -55,8 +58,32 @@ public class DepositoaguaDAOImpl implements IDepositoaguaDAO {
     @Override
     public void guardar(DepositoaguaDto obj) {
 
-        repository.save(depositoaguaMapper.toEntity(obj));
+        DepositoAgua nuevo = depositoaguaMapper.toEntity(obj);
+        // El sensor llega como {id}: se enlaza la fila existente (el mapper crearía un Sensor suelto con el resto
+        // de campos a null).
+        Integer idSensor = obj.getSensorIdsensor() == null ? null : obj.getSensorIdsensor().getId();
+        nuevo.setSensorIdsensor(idSensor == null ? null : sensorRepository.getReferenceById(idSensor));
+        repository.save(nuevo);
+    }
 
+    /**
+     * W12 – Edición desde la web. Los campos que llegan a null se dejan como están; el sensor solo cambia si llega
+     * {@code sensorIdsensor} ({@code {"id": null}} lo quita). Antes el PUT solo guardaba el estado: la capacidad y
+     * la altura editadas se perdían sin avisar.
+     */
+    @Override
+    public void actualizarDatos(DepositoaguaDto obj) {
+        repository.findById(obj.getId()).ifPresent(d -> {
+            if (obj.getCantidadMaxima() != null) d.setCantidadMaxima(obj.getCantidadMaxima());
+            if (obj.getAlturaDeposito() != null) d.setAlturaDeposito(obj.getAlturaDeposito());
+            if (obj.getEstado() != null) d.setEstado(obj.getEstado());
+            if (obj.getHuertoIdhuerto() != null) d.setHuertoIdhuerto(obj.getHuertoIdhuerto());
+            if (obj.getSensorIdsensor() != null) {
+                Integer idSensor = obj.getSensorIdsensor().getId();
+                d.setSensorIdsensor(idSensor == null ? null : sensorRepository.getReferenceById(idSensor));
+            }
+            repository.save(d);
+        });
     }
 
     @Override

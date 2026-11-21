@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public interface DepositoaguaRepository extends JpaRepository<DepositoAgua, Integer> {
@@ -16,6 +18,9 @@ public interface DepositoaguaRepository extends JpaRepository<DepositoAgua, Inte
     Optional<DepositoAgua> findBySensorIdsensor_Id(Integer id);
 
     Optional<DepositoAgua> findByHuertoIdhuerto(Integer huertoIdhuerto);
+
+    /** W12b: depósitos que usan alguno de estos sensores. */
+    List<DepositoAgua> findBySensorIdsensor_IdIn(Collection<Integer> ids);
 
 
     @Transactional

@@ -2,8 +2,8 @@ package es.uah.huertojpa.config;
 
 import es.uah.huertojpa.persona.dominio.repository.PersonaRepository;
 import es.uah.huertojpa.persona.infrastructura.database.IPersonaDAO;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,9 +30,13 @@ public class AplicationConfig {
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
+    /** S2: coste de BCrypt (2^coste vueltas). 10 ≈ 50-100 ms por login en la Raspberry; los tests usan 4. */
+    @Value("${contrasenas.bcrypt-coste:10}")
+    int costeBcrypt;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(costeBcrypt);
     }
     @Bean
     public UserDetailsService userDetailsService() {

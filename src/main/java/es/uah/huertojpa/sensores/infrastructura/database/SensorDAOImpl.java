@@ -48,6 +48,23 @@ public class SensorDAOImpl implements ISensorDAO{
     }
 
     @Override
+    public void guardar(SensorDto obj, Integer creadoPor) {
+        Sensor sensor = SensorMapper.mapper.toEntity(obj);
+        sensor.setCreadoPor(creadoPor);
+        repository.save(sensor);
+    }
+
+    @Override
+    public void actualizarDatos(SensorDto obj) {
+        repository.updateDatosById(obj.getNombreSensor(), obj.getMagnitudAMedir(), obj.getUnidades(), obj.getId());
+    }
+
+    @Override
+    public List<SensorDto> visiblesPara(String userName) {
+        return repository.visiblesPara(userName).stream().map(sensorMapper::toDto).collect(Collectors.toList());
+    }
+
+    @Override
     public void actualizar(SensorDto obj) {
         repository.updateCantidadMedidaById(obj.getCantidadMedida(),obj.getId());
     }

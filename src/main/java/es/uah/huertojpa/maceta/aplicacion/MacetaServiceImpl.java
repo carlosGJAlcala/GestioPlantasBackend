@@ -53,7 +53,8 @@ public class MacetaServiceImpl implements IMacetaService {
 
     @Override
     public boolean guardar(Maceta obj) {
-        if (dao.buscarPorID(obj.getId()) == null) {
+        // Alta sin id (los formularios ya no lo piden): lo genera la BD. Antes findById(null) daba un 500.
+        if (obj.getId() == null || dao.buscarPorID(obj.getId()) == null) {
             dao.guardar(obj);
 
             return true;

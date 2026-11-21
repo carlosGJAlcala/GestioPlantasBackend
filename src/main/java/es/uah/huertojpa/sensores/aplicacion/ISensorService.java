@@ -16,6 +16,12 @@ public interface ISensorService {
     List<SensorDto> buscarPorNombre(String nombre);
     boolean guardar(SensorDto obj);
 
+    /** W12b: alta guardando quién lo da de alta (el sensor libre es suyo). */
+    boolean guardar(SensorDto obj, Integer creadoPor);
+
+    /** W12b: cambia nombre, magnitud y unidades; {@code false} si no existe. */
+    boolean actualizarDatos(SensorDto obj);
+
     boolean actualizar(SensorDto obj);
     boolean actualizarDepositoAgua(SensorDto obj);
     boolean eliminar(Integer id);

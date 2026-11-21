@@ -68,4 +68,19 @@ class ResumenRiegoTest {
         assertNull(r.ultimoRiego());
         assertNull(r.horasDesdeUltimoRiego());
     }
+
+    @Test
+    void cuentaRiegosManualesYDescartados() {
+        Riego manual = riego(AHORA.minusHours(3), 1, 40f, 46f, 70f, 68f, ResultadoRiego.OK);
+        manual.setMotivo(MotivoRiego.MANUAL);
+        Riego descartado = riego(AHORA.minusHours(1), 0, 80f, null, 68f, null, ResultadoRiego.HUMEDAD_MAXIMA);
+        descartado.setMotivo(MotivoRiego.MANUAL);
+        Riego auto = riego(AHORA.minusHours(20), 2, 20f, 45f, 75f, 70f, ResultadoRiego.OK);
+
+        ResumenRiego r = ResumenRiego.calcular(List.of(auto, manual, descartado), manual, AHORA, 7, null);
+
+        assertEquals(2, r.riegos(), "el descartado no activó la bomba");
+        assertEquals(1, r.riegosManuales());
+        assertEquals(1, r.manualesDescartados());
+    }
 }

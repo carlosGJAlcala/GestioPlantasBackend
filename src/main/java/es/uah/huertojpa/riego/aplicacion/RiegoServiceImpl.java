@@ -8,6 +8,7 @@ import es.uah.huertojpa.riego.dominio.MotivoRiego;
 import es.uah.huertojpa.riego.dominio.ResultadoRiego;
 import es.uah.huertojpa.riego.dominio.Riego;
 import es.uah.huertojpa.riego.dominio.RiegoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Clock;
@@ -24,6 +25,7 @@ public class RiegoServiceImpl implements IRiegoService {
     private final IDepositoaguaDAO depositoDAO;
     private final Clock clock;
 
+    @Autowired // hay dos constructores (el otro, con Clock, es para los tests): sin esto Spring no arranca
     public RiegoServiceImpl(RiegoRepository repository, IMacetaDAO macetaDAO, IDepositoaguaDAO depositoDAO) {
         this(repository, macetaDAO, depositoDAO, Clock.system(ZONA));
     }
